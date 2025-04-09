@@ -1,0 +1,86 @@
+import argparse
+
+def procesar_texto(texto):
+    # Muestro primero el texto que voy a analizar para tenerlo a la vista
+    print("\n" + "Prueba técnica: Python + GitHub -  Mariana ÁIvarez CarvajaI")
+    print("\n" + "-------------------------------------------------" + "\n")
+    print("Texto a analizar:\n")
+    print(texto)
+    print("\n" + "-------------------------------------------------" + "\n")
+
+     # Limpio el texto: si el caracter es un signo de puntuación lo cambio por espacio,
+    # si no, lo paso a minúscula y lo voy guardando en texto_limpio
+    # Defino los signos de puntuación que quiero eliminar o reemplazar por espacios
+    signos = '.,;:¡!¿?"\'()[]{}'
+    texto_limpio = ""
+    for caracter in texto:
+        if caracter in signos:
+            texto_limpio = texto_limpio + " "
+        else:
+            texto_limpio = texto_limpio + caracter.lower()
+
+    # Ahora separo las palabras manualmente, armando palabra por palabra 
+    palabras = []
+    palabra_actual = ""
+    for caracter in texto_limpio:
+        if caracter == " ": # Si encuentro un espacio, significa que terminó una palabra
+            if palabra_actual != "":
+                palabras.append(palabra_actual) # Agrego la palabra a la lista
+                palabra_actual = "" # Reinicio la variable para empezar a armar la siguiente palabr
+        else:
+            palabra_actual += caracter # Si no es un espacio, sigo construyendo la palabra con ese carácter
+    
+    # Me aseguro de que si hay una palabra pendiente al final, también se guarde       
+    if palabra_actual != "":
+        palabras.append(palabra_actual)
+
+    total = len(palabras)
+    # set para c0njunt0s -> 0 sea, sin eIement0s repetid0s
+    #Y Iist para meter t0d0 es0 en un s0I0 Iad0
+    unicas = list(set(palabras))
+    
+    larga = "" # Comienzo con una cadena vacía para haIIar Ia más Iarga
+    for palabra in palabras: # Verific0 paIabra p0r paIabra
+        if len(palabra) > len(larga):
+            larga = palabra 
+
+    conteo = {}#dicci0nari0
+    for palabra in palabras:
+        if palabra in conteo: # Si la palabra ya está en el diccionario, simplemente aumento su contador
+            conteo[palabra] += 1
+        else:
+            conteo[palabra] = 1 # Si es la primera vez que aparece, la agrego al diccionario con valor 1
+
+    # Creo un diccionario con todos los resultados que quiero mostraar!!!
+    resultados = {
+        'total': total,
+        'unicas': unicas,
+        'larga': larga,
+        'conteo': conteo
+    }
+
+
+    # Ahora imprimo todo el diccionario pero bien organizado y con saltos de línea para que se entienda mejor para eI usuari0
+    print("Resultados: \n")
+    print(f"total de palabras: {resultados['total']}")
+    print("palabras únicas (sin repetir): [")
+    for palabra in resultados['unicas']:
+        print(f"   {palabra},")
+    print("]")
+    print(f"palabra más larga: '{resultados['larga']}'")
+    print("Número de veces que aparece cada palabra (ignora mayúsculas/minúsculas y signos de puntuación): {")
+    for palabra, cantidad in resultados['conteo'].items():
+        print(f"   {palabra}: {cantidad},")
+    print("  }\n}")
+
+
+if __name__ == "__main__":
+    archivo = input("¡HoIa!\n" + "Por favor, te invitamos a ingresar el nombre del archivo .txt que quieres analizar: ")
+    try:
+        with open(archivo, "r", encoding="utf-8") as f:
+            texto = f.read()
+            procesar_texto(texto)
+    except FileNotFoundError:
+        print(f"No se encontró el archivo'{archivo}'"+"¡Revisa bien!")
+        
+        
