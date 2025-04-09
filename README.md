@@ -1,6 +1,8 @@
 # prueba-python-texto
 Prueba técnica: Python + GitHub Mariana AIvarez CarvajaI
 
+(Esta explicación es para ejecutar la primera parte, si deseas una explicación más detallada, incluyendo la parte EXTRA de la prueba, entrar al documento pdf del repositorio, donde se muestra de manera más gráfica cada uno de los pasos).
+
 Este código, realiza un análisis de un texto dado teniendo en cuentaq lo siguiente:
   - Total de palabras
   - Palabras únicas (sin repetir)
